@@ -18,13 +18,16 @@ public class CardRequestTest {
 
     @Test
     public void shouldSuccessfullySendRequest() {
+
+        var randomUser = DataGenerator.Registration.getUser();
+
         Selenide.open(APP_ADDRESS);
-        $("[data-test-id='city'] input").setValue("Смоленск");
+        $("[data-test-id='city'] input").setValue(randomUser.getCity());
         String inputDate = DataGenerator.getMinDate(PLUS_DAYS);
         $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.DELETE);
         $("[data-test-id='date'] input").setValue(inputDate);
-        $("[data-test-id='name'] input").setValue("Лягушеслав Болотин");
-        $("[data-test-id='phone'] input").setValue("+79999999999");
+        $("[data-test-id='name'] input").setValue(randomUser.getName());
+        $("[data-test-id='phone'] input").setValue(randomUser.getPhone());
         $("[data-test-id='agreement']").click();
         $("button.button").click();
         $(".notification__content")
