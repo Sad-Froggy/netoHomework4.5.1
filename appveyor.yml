@@ -10,7 +10,7 @@ build: off
 
 install:
   - chmod +x gradlew
-  - java -jar .artifacts/app-replan-delivery.jar -port=7777 &
+  - java -jar .artifacts/app-replan-delivery.jar &
 
 
 build_script:
