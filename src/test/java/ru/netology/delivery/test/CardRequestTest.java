@@ -14,7 +14,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class CardRequestTest {
 
     long PLUS_DAYS = 3;
-    String APP_ADDRESS = "http://localhost:9999";
+    String APP_ADDRESS = "http://localhost:7777";
 
     @Test
     public void shouldSuccessfullySendRequest() throws InterruptedException {
