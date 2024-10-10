@@ -17,7 +17,7 @@ public class CardRequestTest {
     String APP_ADDRESS = "http://localhost:9999";
 
     @Test
-    public void shouldSuccessfullySendRequest() throws InterruptedException {
+    public void shouldSuccessfullySendRequest() {
         Selenide.open(APP_ADDRESS);
         $("[data-test-id='city'] input").setValue("Смоленск");
         String inputDate = DataGenerator.getMinDate(PLUS_DAYS);
@@ -28,16 +28,15 @@ public class CardRequestTest {
         $("[data-test-id='agreement']").click();
         $("button.button").click();
         $(".notification__content")
-                .shouldBe(visible, Duration.ofSeconds(15))
-                .shouldHave(Condition.text("Встреча успешно запланирована на " + inputDate));
+                .shouldHave(Condition.text("Встреча успешно запланирована на " + inputDate))
+                .shouldBe(visible);
         $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.DELETE);
         inputDate = DataGenerator.getMinDate(PLUS_DAYS + 1);
         $("[data-test-id='date'] input").setValue(inputDate);
         $("button.button").click();
         $("[data-test-id='replan-notification'] .notification__content")
-                .shouldHave(Condition.text("У вас уже запланирована встреча на другую дату. Перепланировать?"))
-                .shouldBe(visible);
-        Thread.sleep(3000);
+                .shouldBe(visible, Duration.ofSeconds(15))
+                .shouldHave(Condition.text("У вас уже запланирована встреча на другую дату. Перепланировать?"));
         $("[data-test-id='replan-notification'] button").click();
         $("[data-test-id='success-notification'] .notification__content")
                 .shouldBe(visible, Duration.ofSeconds(15))
